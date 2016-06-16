@@ -41,7 +41,7 @@
   <select>
 <%
   for (Season season : seasons) {
-    pageContext.setAttribute("season", season.getId());
+    pageContext.setAttribute("season", season.getName());
 %>
     <option value="${season}">${season}</option>
 <%

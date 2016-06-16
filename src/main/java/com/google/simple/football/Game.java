@@ -58,7 +58,7 @@ public class Game {
   }
 
   public String mainTeam() {
-    return mainTeam.getId();
+    return mainTeam.getName();
   }
 
   public int week() {
