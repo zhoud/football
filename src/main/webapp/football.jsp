@@ -22,9 +22,9 @@
   List<Season> seasons = ObjectifyService.ofy()
       .load()
       .type(Season.class)
-      .order("-season")
+      .order("-__key__")
       .list();
-  Set<String> seasonKeys = new HashSet<>();
+  Set<String> seasonKeys = new HashSet<String>();
   for (Season season : seasons) {
     seasonKeys.add(season.season());
   }
@@ -41,7 +41,7 @@
   <select>
 <%
   for (Season season : seasons) {
-    pageContext.setAttribute("season", season.getName());
+    pageContext.setAttribute("season", season.season());
 %>
     <option value="${season}">${season}</option>
 <%

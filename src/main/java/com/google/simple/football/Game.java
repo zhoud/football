@@ -27,7 +27,7 @@ public class Game {
   // Which week during the season the game occurred. Since at most one game is played each week,
   // the week number serves as a unique identifier.
   @Id
-  private int week;
+  private Long week;
 
   // Those jerks.
   private final String otherTeam;
@@ -44,7 +44,7 @@ public class Game {
   public Game(
       Key<Season> seasonKey,
       String mainTeam,
-      int week,
+      Long week,
       String otherTeam,
       Location location,
       int mainScore,
@@ -61,7 +61,7 @@ public class Game {
     return mainTeam.getName();
   }
 
-  public int week() {
+  public Long week() {
     return week;
   }
 
