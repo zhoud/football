@@ -30,16 +30,19 @@ public class Game {
   private Long week;
 
   // Those jerks.
-  private final String otherTeam;
+  private String otherTeam;
 
   // The location of the game for the main team.
-  private final Location location;
+  private Location location;
 
   // Points scored by the main team.
-  private final int mainScore;
+  private int mainScore;
 
   // Points scored by the other team.
-  private final int otherScore;
+  private int otherScore;
+
+  // No-arg constructor for Datastore.
+  private Game() {}
 
   public Game(
       Key<Season> seasonKey,

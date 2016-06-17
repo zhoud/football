@@ -49,6 +49,14 @@
 %>
   </select>
 </p>
-
+<%
+  if (seasonKey != null) {
+%>
+<p>
+  
+</p>
+<%
+  }
+%>
 </body>
 </html>

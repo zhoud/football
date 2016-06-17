@@ -18,10 +18,13 @@ public class Team {
 
   // The key for a team is a unique string identifier.
   @Id
-  private final String team;
+  private String team;
 
   // The full team name used for display.
-  private final String fullTeamName;
+  private String fullTeamName;
+
+  // No-arg constructor for Datastore.
+  private Team() {}
 
   public Team(String season, String team, String fullTeamName) {
     this.season = Key.create(Season.class, season);

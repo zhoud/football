@@ -9,7 +9,10 @@ import com.googlecode.objectify.annotation.Id;
 @Entity
 public class Season {
   @Id
-  private final String season;
+  private String season;
+
+  // No-arg constructor for Datastore.
+  private Season() {}
 
   public Season(String season) {
     this.season = season;
