@@ -21,6 +21,7 @@ public class Team {
   private String team;
 
   // The full team name used for display.
+  @Index
   private String fullTeamName;
 
   // No-arg constructor for Datastore.

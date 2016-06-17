@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <servlet>
+    <servlet-name>add_season</servlet-name>
+    <servlet-class>com.google.simple.football.SeasonServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>add_team</servlet-name>
+    <servlet-class>com.google.simple.football.TeamServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>add_game</servlet-name>
+    <servlet-class>com.google.simple.football.GameServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>add_season</servlet-name>
+    <url-pattern>/add_season</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>add_team</servlet-name>
+    <url-pattern>/add_team</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>add_game</servlet-name>
+    <url-pattern>/add_game</url-pattern>
+  </servlet-mapping>
+
   <welcome-file-list>
     <welcome-file>football.jsp</welcome-file>
   </welcome-file-list>
