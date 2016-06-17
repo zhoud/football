@@ -22,7 +22,7 @@
   List<Season> seasons = ObjectifyService.ofy()
       .load()
       .type(Season.class)
-      .order("-__key__")
+      .orderKey(true)
       .list();
   Set<String> seasonKeys = new HashSet<String>();
   for (Season season : seasons) {
