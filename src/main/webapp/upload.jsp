@@ -85,8 +85,11 @@
 <%
   for (Season season : seasons) {
     pageContext.setAttribute("season", season.season());
+    pageContext.setAttribute(
+        "default_selected",
+        season.season().equals(seasonString) ? "selected=\"selected\"" : "");
 %>
-      <option value="${season}">${season}</option>
+      <option value="${fn:escapeXml(season)}" ${default_selected}>${fn:escapeXml(season)}</option>
 <%
   }
 %>
@@ -98,15 +101,18 @@
 </form>
 
 <h2>Add Game</h2>
-<form action="/upload.jsp" method="get">
+<form action="/upload.jsp" method="GET">
   <div>
     Season:
     <select name="season">
 <%
   for (Season season : seasons) {
     pageContext.setAttribute("season", season.season());
+    pageContext.setAttribute(
+        "default_selected",
+        season.season().equals(seasonString) ? "selected=\"selected\"" : "");
 %>
-      <option value="${season}">${season}</option>
+      <option value="${fn:escapeXml(season)}" ${default_selected}>${fn:escapeXml(season)}</option>
 <%
   }
 %>
@@ -129,7 +135,7 @@
       pageContext.setAttribute("team", team.team());
       pageContext.setAttribute("team_name", team.fullTeamName());
 %>
-      <option value="${team}">${team_name}</option>
+      <option value="${fn:escapeXml(team)}">${fn:escapeXml(team_name)}</option>
 <%
     }
 %>
@@ -152,7 +158,7 @@
       pageContext.setAttribute("other_team", team.team());
       pageContext.setAttribute("other_team_name", team.fullTeamName());
 %>
-     <option value="${other_team}">${other_team_name}</option>
+     <option value="${fn:escapeXml(other_team)}">${fn:escapeXml(other_team_name)}</option>
 <%
     }
 %>

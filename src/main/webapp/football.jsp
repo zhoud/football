@@ -6,9 +6,8 @@
 <%@ page import="com.googlecode.objectify.Key" %>
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
 
-<%@ page import="java.util.HashSet" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.Set" %>
 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -17,46 +16,90 @@
   <link type="text/css" rel="stylesheet" href="/stylesheets/main.css"/>
 </head>
 
-<body>
 <%
+  // Load the season and team data. Verify that the GET parameters for season and team are valid.
+  String seasonString = request.getParameter("season");
+  String teamString = request.getParameter("team");
+
   List<Season> seasons = ObjectifyService.ofy()
       .load()
       .type(Season.class)
       .orderKey(true)
       .list();
-  Set<String> seasonKeys = new HashSet<String>();
+
+  boolean seasonFound = false;
   for (Season season : seasons) {
-    seasonKeys.add(season.season());
+    if (season.season().equals(seasonString)) {
+      seasonFound = true;
+      break;
+    }
   }
 
-  // If the user supplies an invalid season key, the result will be the same as default behavior:
-  // no data will be shown on the page.
-  String seasonKey = request.getParameter("season");
-  if (seasonKeys.contains(seasonKey)) {
-    seasonKey = null;
+  List<Team> teams = new ArrayList<Team>();
+  if (seasonFound) {
+    teams = ObjectifyService.ofy()
+        .load()
+        .type(Team.class)
+        .ancestor(Key.create(Season.class, seasonString))
+        .order("fullTeamName")
+        .list();
+
+    boolean teamFound = false;
+    for (Team team : teams) {
+      if (team.team().equals(teamString)) {
+        teamFound = true;
+        break;
+      }
+    }
+    if (!teamFound) {
+      teamString = null;
+    }
+  } else {
+    seasonString = null;
   }
 %>
-<p>
-  Choose a season:
-  <select>
+
+<body>
+<form action="/football.jsp" method="GET">
+  <div>
+    Choose a season:
+    <select name="season">
 <%
   for (Season season : seasons) {
     pageContext.setAttribute("season", season.season());
+    pageContext.setAttribute(
+        "default_selected",
+        season.season().equals(seasonString) ? "selected=\"selected\"" : "");
 %>
-    <option value="${season}">${season}</option>
+      <option value="${fn:escapeXml(season)}" ${default_selected}>${fn:escapeXml(season)}</option>
 <%
   }
 %>
-  </select>
-</p>
+    </select>&nbsp;
 <%
-  if (seasonKey != null) {
+  if (seasonString != null) {
 %>
-<p>
-  
-</p>
+    Choose a team:
+    <select name="team">
+<%
+    for (Team team : teams) {
+      pageContext.setAttribute("team", team.team());
+      pageContext.setAttribute("team_name", team.fullTeamName());
+      pageContext.setAttribute(
+          "default_selected",
+          team.team().equals(teamString) ? "selected=\"selected\"" : "");
+%>
+      <option value="${fn:escapeXml(team)}" ${default_selected}>${fn:escapeXml(team_name)}</option>
+<%
+    }
+%>
+    </select>
 <%
   }
 %>
+    <br /><br />
+    <input type="submit" value="Lookup season/team" />
+  </div>
+</form>
 </body>
 </html>
