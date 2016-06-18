@@ -2,3 +2,19 @@ body {
   font-family: Verdana, Helvetica, sans-serif;
   background-color: #D3E8E8;
 }
+table, th, td {
+  border: 1px solid #000000;
+  border-collapse: collapse;
+  text-align: left;
+}
+th, td {
+  padding: 10px;
+}
+.win {
+  color: #0A7F0A;
+  font-weight: bold;
+}
+.lose {
+  color: #7F0A0A;
+  font-weight: bold;
+}
