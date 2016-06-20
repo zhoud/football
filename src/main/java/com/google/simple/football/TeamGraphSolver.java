@@ -18,18 +18,21 @@ public class TeamGraphSolver {
   // teams is present if the first team beat the second team at some point during the season.
   // Returns null if no path exists.
   public static TeamGraphPath shortestPath(String season, String startTeam, String endTeam) {
+    // Track which teams have already been visited in the path search.
     Set<String> visited = new HashSet<>();
     visited.add(startTeam);
+
+    // Queue maintaining partial paths being searched.
     Queue<TeamGraphPath> paths = new LinkedList<>();
     paths.add(new TeamGraphPath(startTeam));
 
     while (!paths.isEmpty()) {
       TeamGraphPath currentPath = paths.remove();
-      List<String> wins = findWins(season, currentPath.last(), visited);
-      for (String nextTeam : wins) {
+      List<Game> wins = findWins(season, currentPath.lastTeam(), visited);
+      for (Game nextGame : wins) {
         TeamGraphPath nextPath = currentPath.clone();
-        nextPath.addTeam(nextTeam);
-        if (nextTeam.equals(endTeam)) {
+        nextPath.addGame(nextGame);
+        if (nextGame.otherTeam().equals(endTeam)) {
           return nextPath;
         }
         paths.add(nextPath);
@@ -39,7 +42,7 @@ public class TeamGraphSolver {
     return null;
   }
 
-  private static List<String> findWins(String season, String team, Set<String> visited) {
+  private static List<Game> findWins(String season, String team, Set<String> visited) {
     Key<Season> seasonKey = Key.create(Season.class, season);
     List<Game> games = ObjectifyService.ofy()
         .load()
@@ -48,15 +51,14 @@ public class TeamGraphSolver {
         .orderKey(false)
         .list();
 
-    List<String> nextTeams = new ArrayList<>();
+    List<Game> wins = new ArrayList<>();
     for (Game game : games) {
-      String otherTeam = game.otherTeam();
-      if (game.won() && !visited.contains(otherTeam)) {
-        visited.add(otherTeam);
-        nextTeams.add(otherTeam);
+      if (game.won() && !visited.contains(game.otherTeam())) {
+        visited.add(game.otherTeam());
+        wins.add(game);
       }
     }
 
-    return nextTeams;
+    return wins;
   }
 }

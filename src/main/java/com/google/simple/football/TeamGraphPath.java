@@ -4,36 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A path of teams connected by wins used by TeamGraphSolver.
+ * A path of teams connected by wins used by TeamGraphSolver. The path is implicitly described by a
+ * series of games. The following constraint must hold: games[i].otherTeam == games[i + 1].mainTeam.
  */
 public class TeamGraphPath implements Cloneable {
-  private List<String> teams;
+  // The list of games representing the path of teams with wins over each other.
+  private List<Game> games;
 
-  // Zero-arg constructor for clone().
-  private TeamGraphPath() {}
+  // The initial team is stored for convenience and simplicity of code, as it allows clients to use
+  // lastTeam even when no games have been added.
+  private String initialTeam;
 
   public TeamGraphPath(String initialTeam) {
-    teams = new ArrayList<>();
-    teams.add(initialTeam);
+    games = new ArrayList<>();
+    this.initialTeam = initialTeam;
   }
 
-  public List<String> teams() {
-    return teams;
+  public List<Game> games() {
+    return games;
   }
 
-  public String last() {
-    return teams.get(teams.size() - 1);
+  public String lastTeam() {
+    if (games.isEmpty()) {
+      return initialTeam;
+    }
+    return games.get(games.size() - 1).otherTeam();
   }
 
-  public void addTeam(String team) {
-    teams.add(team);
+  public void addGame(Game game) {
+    games.add(game);
   }
 
   @Override
   public TeamGraphPath clone() {
-    TeamGraphPath teamGraphPath = new TeamGraphPath();
-    for (String team : teams) {
-      teamGraphPath.addTeam(team);
+    TeamGraphPath teamGraphPath = new TeamGraphPath(initialTeam);
+    for (Game game : games) {
+      teamGraphPath.games.add(game);
     }
     return teamGraphPath;
   }
