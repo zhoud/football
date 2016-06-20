@@ -2,13 +2,23 @@ body {
   font-family: Verdana, Helvetica, sans-serif;
   background-color: #D3E8E8;
 }
-table, th, td {
+table.schedule, table.schedule th, table.schedule td {
   border: 1px solid #000000;
   border-collapse: collapse;
   text-align: left;
 }
-th, td {
+table.schedule th, table.schedule td {
   padding: 10px;
+}
+table.path, table.path td {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.bold {
+  font-weight: bold;
+}
+.large {
+  font-size: 200%;
 }
 .win {
   color: #0A7F0A;

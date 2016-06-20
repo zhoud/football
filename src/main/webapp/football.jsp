@@ -117,7 +117,7 @@
         .list();
 %>
 <h2>${fn:escapeXml(team_name)} ${fn:escapeXml(season)} Season</h2>
-<table>
+<table class="schedule">
   <tr>
     <th>Week</th>
     <th>Opponent</th>
@@ -190,7 +190,9 @@
 <h4>Must select a different team.</h4>
 <%
     } else if (teamMap.containsKey(otherTeamString)) {
+      Team team = teamMap.get(teamString);
       Team otherTeam = teamMap.get(otherTeamString);
+      pageContext.setAttribute("team_name", team.fullTeamName());
       pageContext.setAttribute("other_team_name", otherTeam.fullTeamName());
 
       TeamGraphPath path = TeamGraphSolver.shortestPath(seasonString, teamString, otherTeamString);
@@ -203,15 +205,42 @@
         pageContext.setAttribute("hops", pathGames.size());
         pageContext.setAttribute("hop_word", pathGames.size() == 1 ? "hop" : "hops");
 %>
-<h4>${fn:escapeXml(team_name)} beats ${fn:escapeXml(other_team_name)} in ${hops} ${hop_word}:</h4>
+<p>
+  <noop class="bold">${fn:escapeXml(team_name)}</noop> beats <noop class="bold">${fn:escapeXml(other_team_name)}</noop> in ${hops} ${hop_word}:
+</p>
+<table class="path">
 <%
         for (Game game : pathGames) {
-          // TODO: display
-        }
-      }
+          Team gameMainTeam = teamMap.get(game.mainTeam());
+          Team gameOtherTeam = teamMap.get(game.otherTeam());
+          pageContext.setAttribute("team_name", gameMainTeam.fullTeamName());
+          pageContext.setAttribute("other_team_name", gameOtherTeam.fullTeamName());
+          pageContext.setAttribute("week", game.week());
+
+          String resultString;
+          if (game.won()) {
+            resultString = "<noop class=\"win\">W</noop> ";
+          } else {
+            resultString = "<noop class=\"lose\">L</noop> ";
+          }
+          resultString += game.mainScore();
+          resultString += " - ";
+          resultString += game.otherScore();
+          pageContext.setAttribute("result", resultString);
 %>
-<h4>${fn:escapeXml(other_team_name)}</h4>
+  <tr>
+    <td class="bold">Week ${week}</td>
+    <td>${fn:escapeXml(team_name)}</td>
+    <td class="large">&#x2192;</td>
+    <td>${fn:escapeXml(other_team_name)}</td>
+    <td>${result}</td>
+  </tr>
 <%
+        }
+%>
+</table>
+<%
+      }
     }
   }
 %>
