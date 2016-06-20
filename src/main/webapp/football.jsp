@@ -3,6 +3,8 @@
 <%@ page import="com.google.simple.football.Game" %>
 <%@ page import="com.google.simple.football.Season" %>
 <%@ page import="com.google.simple.football.Team" %>
+<%@ page import="com.google.simple.football.TeamGraphPath" %>
+<%@ page import="com.google.simple.football.TeamGraphSolver" %>
 <%@ page import="com.googlecode.objectify.Key" %>
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
 
@@ -160,7 +162,57 @@
     }
 %>
 </table>
+
+<h2>Transitive Property of "My Team is Better Than Your Team"</h2>
+<form action="/football.jsp" method="GET">
+  <div>
+    <input type="hidden" name="season" value="${fn:escapeXml(season)}" />
+    <input type="hidden" name="team" value="${fn:escapeXml(team)}" />
+    Choose another team:
+    <select name="other_team">
 <%
+    for (Team team : teams) {
+      pageContext.setAttribute("team", team.team());
+      pageContext.setAttribute("team_name", team.fullTeamName());
+%>
+      <option value="${fn:escapeXml(team)}">${fn:escapeXml(team_name)}</option>
+<%
+    }
+%>
+    </select><br /><br />
+    <input type="submit" value="My team is better" />
+  </div>
+</form>
+<%
+    String otherTeamString = request.getParameter("other_team");
+    if (teamString.equals(otherTeamString)) {
+%>
+<h4>Must select a different team.</h4>
+<%
+    } else if (teamMap.containsKey(otherTeamString)) {
+      Team otherTeam = teamMap.get(otherTeamString);
+      pageContext.setAttribute("other_team_name", otherTeam.fullTeamName());
+
+      TeamGraphPath path = TeamGraphSolver.shortestPath(seasonString, teamString, otherTeamString);
+      if (path == null) {
+%>
+<h4>${fn:escapeXml(team_name)} does not beat ${fn:escapeXml(other_team_name)} in any way, shape, or form.</h4>
+<%
+      } else {
+        List<Game> pathGames = path.games();
+        pageContext.setAttribute("hops", pathGames.size());
+        pageContext.setAttribute("hop_word", pathGames.size() == 1 ? "hop" : "hops");
+%>
+<h4>${fn:escapeXml(team_name)} beats ${fn:escapeXml(other_team_name)} in ${hops} ${hop_word}:</h4>
+<%
+        for (Game game : pathGames) {
+          // TODO: display
+        }
+      }
+%>
+<h4>${fn:escapeXml(other_team_name)}</h4>
+<%
+    }
   }
 %>
 </body>
