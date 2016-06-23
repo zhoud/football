@@ -4,23 +4,24 @@
     <servlet-name>add_season</servlet-name>
     <servlet-class>com.google.simple.football.SeasonServlet</servlet-class>
   </servlet>
-  <servlet>
-    <servlet-name>add_team</servlet-name>
-    <servlet-class>com.google.simple.football.TeamServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <servlet-name>add_game</servlet-name>
-    <servlet-class>com.google.simple.football.GameServlet</servlet-class>
-  </servlet>
-
   <servlet-mapping>
     <servlet-name>add_season</servlet-name>
     <url-pattern>/add_season</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>add_team</servlet-name>
+    <servlet-class>com.google.simple.football.TeamServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>add_team</servlet-name>
     <url-pattern>/add_team</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>add_game</servlet-name>
+    <servlet-class>com.google.simple.football.GameServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>add_game</servlet-name>
     <url-pattern>/add_game</url-pattern>
@@ -41,4 +42,15 @@
   <listener>
     <listener-class>com.google.simple.football.OfyHelper</listener-class>
   </listener>
+
+  <security-constraint>
+    <web-resource-collection>
+      <url-pattern>/add_season</url-pattern>
+      <url-pattern>/add_team</url-pattern>
+      <url-pattern>/add_game</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
 </web-app>
