@@ -20,15 +20,8 @@
   </properties>
 
   <modules>
-    <module>
-      team-picker
-    </module>
-    <module>
-      <web>
-        <web-uri>uploader</web-uri>
-        <context-root>uploader</context-root>
-      </web>
-    </module>
+    <module>team-picker</module>
+    <module>uploader</module>
   </modules>
 
   <prerequisites>

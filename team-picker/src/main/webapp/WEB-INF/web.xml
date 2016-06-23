@@ -2,7 +2,7 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <servlet>
     <servlet-name>add_season</servlet-name>
-    <servlet-class>com.google.simple.football.SeasonServlet</servlet-class>
+    <servlet-class>com.google.simple.teampicker.SeasonServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>add_season</servlet-name>
@@ -11,7 +11,7 @@
 
   <servlet>
     <servlet-name>add_team</servlet-name>
-    <servlet-class>com.google.simple.football.TeamServlet</servlet-class>
+    <servlet-class>com.google.simple.teampicker.TeamServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>add_team</servlet-name>
@@ -20,7 +20,7 @@
 
   <servlet>
     <servlet-name>add_game</servlet-name>
-    <servlet-class>com.google.simple.football.GameServlet</servlet-class>
+    <servlet-class>com.google.simple.teampicker.GameServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>add_game</servlet-name>
@@ -28,7 +28,7 @@
   </servlet-mapping>
 
   <welcome-file-list>
-    <welcome-file>football.jsp</welcome-file>
+    <welcome-file>teampicker.jsp</welcome-file>
   </welcome-file-list>
 
   <filter>
@@ -40,7 +40,7 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
   <listener>
-    <listener-class>com.google.simple.football.OfyHelper</listener-class>
+    <listener-class>com.google.simple.teampicker.OfyHelper</listener-class>
   </listener>
 
   <security-constraint>

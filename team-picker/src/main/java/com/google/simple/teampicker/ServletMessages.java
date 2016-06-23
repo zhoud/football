@@ -1,4 +1,4 @@
-package com.google.simple.football;
+package com.google.simple.teampicker;
 
 import java.util.Collections;
 import java.util.HashMap;

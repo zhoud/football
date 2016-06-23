@@ -1,4 +1,4 @@
-package com.google.simple.football;
+package com.google.simple.teampicker;
 
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;

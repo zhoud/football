@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%@ page import="com.google.simple.football.Game" %>
-<%@ page import="com.google.simple.football.Season" %>
-<%@ page import="com.google.simple.football.ServletMessages" %>
-<%@ page import="com.google.simple.football.Team" %>
+<%@ page import="com.google.simple.teampicker.Game" %>
+<%@ page import="com.google.simple.teampicker.Season" %>
+<%@ page import="com.google.simple.teampicker.ServletMessages" %>
+<%@ page import="com.google.simple.teampicker.Team" %>
 <%@ page import="com.googlecode.objectify.Key" %>
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
 

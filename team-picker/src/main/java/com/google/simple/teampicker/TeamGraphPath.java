@@ -1,4 +1,4 @@
-package com.google.simple.football;
+package com.google.simple.teampicker;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%@ page import="com.google.simple.football.Game" %>
-<%@ page import="com.google.simple.football.Season" %>
-<%@ page import="com.google.simple.football.Team" %>
-<%@ page import="com.google.simple.football.TeamGraphPath" %>
-<%@ page import="com.google.simple.football.TeamGraphSolver" %>
+<%@ page import="com.google.simple.teampicker.Game" %>
+<%@ page import="com.google.simple.teampicker.Season" %>
+<%@ page import="com.google.simple.teampicker.Team" %>
+<%@ page import="com.google.simple.teampicker.TeamGraphPath" %>
+<%@ page import="com.google.simple.teampicker.TeamGraphSolver" %>
 <%@ page import="com.googlecode.objectify.Key" %>
 <%@ page import="com.googlecode.objectify.ObjectifyService" %>
 
@@ -61,7 +61,7 @@
 %>
 
 <body>
-<form action="/football.jsp" method="GET">
+<form action="/teampicker.jsp" method="GET">
   <div>
     Choose a season:
     <select name="season">
@@ -164,7 +164,7 @@
 </table>
 
 <h2>Transitive Property of "My Team is Better Than Your Team"</h2>
-<form action="/football.jsp" method="GET">
+<form action="/teampicker.jsp" method="GET">
   <div>
     <input type="hidden" name="season" value="${fn:escapeXml(season)}" />
     <input type="hidden" name="team" value="${fn:escapeXml(team)}" />

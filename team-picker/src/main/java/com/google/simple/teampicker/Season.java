@@ -1,4 +1,4 @@
-package com.google.simple.football;
+package com.google.simple.teampicker;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
