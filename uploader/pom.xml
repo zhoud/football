@@ -9,11 +9,11 @@
   </parent>
 
   <groupId>com.google.simple</groupId>
-  <artifactId>teampicker</artifactId>
+  <artifactId>uploader</artifactId>
   <packaging>war</packaging>
   <version>1.0</version>
 
-  <name>team-picker</name>
+  <name>uploader</name>
 
   <dependencies>
     <!-- Compile/runtime dependencies -->
@@ -34,14 +34,8 @@
       <version>1.2</version>
     </dependency>
     <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>${guava.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.googlecode.objectify</groupId>
-      <artifactId>objectify</artifactId>
-      <version>${objectify.version}</version>
+      <groupId>com.google.appengine.tools</groupId>
+      <artifactId>appengine-mapreduce</artifactId>
     </dependency>
 
     <!-- Test Dependencies -->
@@ -110,6 +104,7 @@
         <configuration>
           <enableJarClasses>false</enableJarClasses>
           <version>${app.version}</version>
+          <port>8080</port -->
         </configuration>
       </plugin>
       <plugin>
