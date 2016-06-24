@@ -2,3 +2,4 @@
 -appengine-generated/
 target/
 eclipse-launch-profiles/
+hidden.properties
