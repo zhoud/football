@@ -27,9 +27,28 @@ public class GameFetcherTest {
   }
 
   @Test
+  public void testFetchTeams() {
+    List<GameFetcher.Team> teams = GameFetcher.fetchTeams(5);
+    assertThat(teams).hasSize(5);
+    assertThat(teams)
+        .containsExactly(
+            new GameFetcher.Team("akron", "University of Akron"),
+            new GameFetcher.Team("air_force", "Air Force"),
+            new GameFetcher.Team("arizona", "University of Arizona"),
+            new GameFetcher.Team("alabama", "University of Alabama"),
+            new GameFetcher.Team("appalachian_st", "Appalachian State University"));
+  }
+
+  @Test
   public void testFetchWeeks() {
-    List<Integer> weekList = GameFetcher.fetchWeeks("2015");
-    assertThat(weekList).hasSize(10);
-    assertThat(weekList).containsExactly(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+    List<Integer> weeks = GameFetcher.fetchWeeks("2015");
+    assertThat(weeks).hasSize(11);
+    assertThat(weeks).containsExactly(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+  }
+
+  @Test
+  public void testFetchGame() {
+    GameFetcher.Game game = GameFetcher.fetchGame("2015", "stanford", 1);
+    assertThat(game).isEqualTo(new GameFetcher.Game("northwestern", "stanford", 16, 6));
   }
 }
