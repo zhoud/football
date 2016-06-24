@@ -34,11 +34,6 @@
       <version>1.2</version>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-    </dependency>
-    <dependency>
       <groupId>com.google.appengine.tools</groupId>
       <artifactId>appengine-mapreduce</artifactId>
       <version>0.8.5</version>
@@ -56,6 +51,16 @@
       <artifactId>appengine-api-stubs</artifactId>
       <version>${appengine.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.truth</groupId>
+      <artifactId>truth</artifactId>
+      <version>0.28</version>
     </dependency>
   </dependencies>
 
