@@ -1,0 +1,7 @@
+<queue-entries>
+  <queue>
+    <name>mapreduce-workers</name>
+    <mode>push</mode>
+    <rate>10/s</rate>
+  </queue>
+</queue-entries>
