@@ -1,4 +1,0 @@
-<queue>
-  <name>uploader-queue</name>
-  <rate>2/s</rate>
-</queue>

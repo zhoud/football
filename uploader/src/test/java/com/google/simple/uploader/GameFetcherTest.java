@@ -27,6 +27,14 @@ public class GameFetcherTest {
   }
 
   @Test
+  public void testCheckSeason() {
+    assertThat(GameFetcher.checkSeason("2015")).isTrue();
+    assertThat(GameFetcher.checkSeason("2010")).isTrue();
+    assertThat(GameFetcher.checkSeason("2018")).isFalse();
+    assertThat(GameFetcher.checkSeason("blah")).isFalse();
+  }
+
+  @Test
   public void testFetchTeams() {
     List<GameFetcher.Team> teams = GameFetcher.fetchTeams(5);
     assertThat(teams).hasSize(5);

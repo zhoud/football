@@ -28,6 +28,25 @@ public class GameFetcher {
   private static Gson gson = new Gson();
 
   /**
+   * Returns true if the season is valid.
+   */
+  public static boolean checkSeason(String season) {
+    String content = getURLResponseContents("season/" + season + "/", 1);
+    if (content == null) {
+      return false;
+    }
+    // Yeah, I know.
+    if (content.equals("{\n  \"games\": []\n}")) {
+      return false;
+    }
+    if (content.equals("{\n  \"error\": \"Not found\"\n}")) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
    * Returns a list of teams. Up to 100 teams are returned.
    */
   public static List<Team> fetchTeams() {
