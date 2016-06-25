@@ -120,7 +120,7 @@
         <version>${appengine.version}</version>
         <configuration>
           <enableJarClasses>false</enableJarClasses>
-          <version>${app.version}</version>
+          <version>appversion</version>
         </configuration>
       </plugin>
       <plugin>

@@ -20,6 +20,7 @@
   </properties>
 
   <modules>
+    <module>ear</module>
     <module>team-picker</module>
     <module>uploader</module>
   </modules>
