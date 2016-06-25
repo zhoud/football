@@ -3,9 +3,10 @@ package com.google.simple.uploader;
 import com.google.appengine.tools.mapreduce.InputReader;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.NoSuchElementException;
 
-public class UploaderInputReader extends InputReader<String> {
+public class UploaderInputReader extends InputReader<UploaderGameKey> {
   // The season whose data is being processed by this MapReduce job.
   private String season;
 
@@ -32,17 +33,14 @@ public class UploaderInputReader extends InputReader<String> {
   }
 
   @Override
-  public String next() throws IOException, NoSuchElementException {
+  public UploaderGameKey next() throws IOException, NoSuchElementException {
     if (teamIndex >= teams.size() || weekIndex >= weeks.size()) {
-      throw NoSuchElementException();
+      throw new NoSuchElementException();
     }
 
-    // Father forgive me, for I have sinned.
-    GameFetcher team = teams.get(teamIndex);
-    String theWorst = season + ";"
-        + weeks.get(weekIndex) + ";"
-        + team.team() + ";"
-        + team.fullTeamName();
+    GameFetcher.Team team = teams.get(teamIndex);
+    UploaderGameKey gameKey =
+        new UploaderGameKey(season, team.team(), team.fullTeamName(), weeks.get(weekIndex));
 
     weekIndex++;
     if (weekIndex >= weeks.size()) {
@@ -50,6 +48,6 @@ public class UploaderInputReader extends InputReader<String> {
       weekIndex = 0;
     }
 
-    return theWorst;
+    return gameKey;
   }
 }

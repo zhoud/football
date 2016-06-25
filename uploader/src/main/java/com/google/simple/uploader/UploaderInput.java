@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UploaderInput extends Input<String> {
+public class UploaderInput extends Input<UploaderGameKey> {
   // The season whose info is being processed by this MapReduce job.
   private String season;
 
