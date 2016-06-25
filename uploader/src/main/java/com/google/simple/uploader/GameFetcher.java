@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -81,6 +82,7 @@ public class GameFetcher {
       return null;
     }
     return new Game(
+        week,
         game.teams().homeTeam(),
         game.teams().awayTeam(),
         game.results().homeScore(),
@@ -308,7 +310,10 @@ public class GameFetcher {
   /**
    * Game information packed into a single class.
    */
-  public static class Game {
+  public static class Game implements Serializable {
+    // Week of the season.
+    private int week;
+
     // Home team ID.
     private String homeTeam;
 
@@ -321,11 +326,16 @@ public class GameFetcher {
     // Away team score.
     private int awayScore;
 
-    public Game(String homeTeam, String awayTeam, int homeScore, int awayScore) {
+    public Game(int week, String homeTeam, String awayTeam, int homeScore, int awayScore) {
+      this.week = week;
       this.homeTeam = homeTeam;
       this.awayTeam = awayTeam;
       this.homeScore = homeScore;
       this.awayScore = awayScore;
+    }
+
+    public int week() {
+      return week;
     }
 
     public String homeTeam() {

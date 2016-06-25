@@ -49,6 +49,6 @@ public class GameFetcherTest {
   @Test
   public void testFetchGame() {
     GameFetcher.Game game = GameFetcher.fetchGame("2015", "stanford", 1);
-    assertThat(game).isEqualTo(new GameFetcher.Game("northwestern", "stanford", 16, 6));
+    assertThat(game).isEqualTo(new GameFetcher.Game(1, "northwestern", "stanford", 16, 6));
   }
 }

@@ -16,11 +16,11 @@ public class UploaderInput extends Input<String> {
   }
 
   /**
-   * Only one reader is needed, since the list of teams is fetched by a single url GET call.
+   * Only one reader is needed, as the week and team lists are each fetched by a single GET.
    */
   @Override
   public List<UploaderInputReader> createReaders() throws IOException {
-    ArrayList<UploaderInputReader> readers = new ArrayList<>();
+    List<UploaderInputReader> readers = new ArrayList<>();
     readers.add(new UploaderInputReader(season));
     return readers;
   }
