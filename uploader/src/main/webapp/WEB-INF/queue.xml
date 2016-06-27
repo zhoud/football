@@ -1,7 +1,13 @@
 <queue-entries>
   <queue>
     <name>mapreduce-workers</name>
-    <mode>push</mode>
     <rate>10/s</rate>
+    <bucket-size>50</bucket-size>
+    <retry-parameters>
+      <task-age-limit>1d</task-age-limit>
+    </retry-parameters>
+    <max-concurrent-requests>
+      50
+    </max-concurrent-requests>
   </queue>
 </queue-entries>
