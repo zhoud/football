@@ -5,12 +5,12 @@
   <parent>
     <groupId>com.google.simple</groupId>
     <artifactId>football</artifactId>
-    <version>1.0</version>
+    <version>1</version>
   </parent>
 
   <groupId>com.google.simple</groupId>
   <artifactId>ear</artifactId>
-  <version>1.0</version>
+  <version>1</version>
   <packaging>ear</packaging>
 
   <name>ear</name>
@@ -42,7 +42,7 @@
         <artifactId>appengine-maven-plugin</artifactId>
         <version>${appengine.version}</version>
         <configuration>
-          <version>appengine</version>
+          <version>1</version>
         </configuration>
       </plugin>
     </plugins>
@@ -52,13 +52,13 @@
     <dependency>
       <groupId>com.google.simple</groupId>
       <artifactId>teampicker</artifactId>
-      <version>1.0</version>
+      <version>1</version>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>com.google.simple</groupId>
       <artifactId>uploader</artifactId>
-      <version>1.0</version>
+      <version>1</version>
       <type>war</type>
     </dependency>
   </dependencies>

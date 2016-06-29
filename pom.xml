@@ -3,13 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google.simple</groupId>
   <artifactId>football</artifactId>
-  <version>1.0</version>
+  <version>1</version>
   <packaging>pom</packaging>
   <name>football</name>
 
   <properties>
     <app.id>google.com:simple-test-project</app.id>
-    <app.version>1</app.version>
     <appengine.version>1.9.24</appengine.version>
     <gcloud.plugin.version>2.0.9.74.v20150814</gcloud.plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -3,13 +3,13 @@
   <display-name>ear</display-name>
   <module>
     <web>
-      <web-uri>teampicker-1.0.war</web-uri>
+      <web-uri>teampicker-1.war</web-uri>
       <context-root>/team-picker</context-root>
     </web>
   </module>
   <module>
     <web>
-      <web-uri>uploader-1.0.war</web-uri>
+      <web-uri>uploader-1.war</web-uri>
       <context-root>/uploader</context-root>
     </web>
   </module>

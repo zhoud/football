@@ -5,13 +5,13 @@
   <parent>
     <groupId>com.google.simple</groupId>
     <artifactId>football</artifactId>
-    <version>1.0</version>
+    <version>1</version>
   </parent>
 
   <groupId>com.google.simple</groupId>
   <artifactId>uploader</artifactId>
   <packaging>war</packaging>
-  <version>1.0</version>
+  <version>1</version>
 
   <name>uploader</name>
 
@@ -119,8 +119,7 @@
         <artifactId>appengine-maven-plugin</artifactId>
         <version>${appengine.version}</version>
         <configuration>
-          <enableJarClasses>false</enableJarClasses>
-          <version>appversion</version>
+          <version>1</version>
         </configuration>
       </plugin>
       <plugin>

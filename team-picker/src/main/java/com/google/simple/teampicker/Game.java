@@ -3,6 +3,7 @@ package com.google.simple.teampicker;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Parent;
 
 /**
@@ -29,15 +30,19 @@ public class Game {
   private Long week;
 
   // Those jerks.
+  @Index
   private String otherTeam;
 
   // The location of the game for the main team.
+  @Index
   private Location location;
 
   // Points scored by the main team.
+  @Index
   private int mainScore;
 
   // Points scored by the other team.
+  @Index
   private int otherScore;
 
   // No-arg constructor for Datastore.

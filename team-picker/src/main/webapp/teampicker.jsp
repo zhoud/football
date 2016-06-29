@@ -127,7 +127,11 @@
 <%
     for (Game game : games) {
       pageContext.setAttribute("week", game.week());
-      pageContext.setAttribute("opponent", teamMap.get(game.otherTeam()).fullTeamName());
+      if (teamMap.containsKey(game.otherTeam())) {
+        pageContext.setAttribute("opponent", teamMap.get(game.otherTeam()).fullTeamName());
+      } else {
+        pageContext.setAttribute("opponent", game.otherTeam());
+      }
 
       switch (game.location()) {
         case HOME:
