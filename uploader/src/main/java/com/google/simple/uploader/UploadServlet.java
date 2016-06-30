@@ -17,12 +17,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class UploadServlet extends HttpServlet {
+  // Utility object that handles various upload tasks.
+  private UploadUtil uploader = new UploadUtil();
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String season = request.getParameter("season");
-    if (season == null || !GameFetcher.checkSeason(season)) {
+    if (!uploader.checkSeason(season)) {
       response.sendRedirect("uploader.jsp?error=true");
+      return;
     }
 
     Input<UploaderGameKey> input = new UploaderInput(season);

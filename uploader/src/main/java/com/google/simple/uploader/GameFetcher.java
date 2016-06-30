@@ -31,19 +31,22 @@ public class GameFetcher {
    * Returns true if the season is valid.
    */
   public static boolean checkSeason(String season) {
-    String content = getURLResponseContents("season/" + season + "/", 1);
-    if (content == null) {
-      return false;
-    }
     // Yeah, I know.
-    if (content.equals("{\n  \"games\": []\n}")) {
-      return false;
-    }
-    if (content.equals("{\n  \"error\": \"Not found\"\n}")) {
-      return false;
-    }
+    String content = getURLResponseContents("season/" + season + "/", 1);
+    return
+        content != null
+        && !content.equals("{\n  \"games\": []\n}")
+        && !content.equals("{\n  \"error\": \"Not found\"\n}");
+  }
 
-    return true;
+  /**
+   * Returns true if the team exists.
+   */
+  public static boolean checkTeam(String team) {
+    // Bleh.
+    String content = getURLResponseContents("teams/" + team + "/", 1);
+    return content != null
+        && !content.equals("{\n  \"error\": \"Team not found.\",\n  \"status\": 404\n}");
   }
 
   /**

@@ -35,6 +35,12 @@ public class GameFetcherTest {
   }
 
   @Test
+  public void testCheckTeam() {
+    assertThat(GameFetcher.checkTeam("stanford")).isTrue();
+    assertThat(GameFetcher.checkTeam("garbanzo")).isFalse();
+  }
+
+  @Test
   public void testFetchTeams() {
     List<GameFetcher.Team> teams = GameFetcher.fetchTeams(5);
     assertThat(teams).hasSize(5);

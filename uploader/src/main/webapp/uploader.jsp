@@ -18,9 +18,29 @@
 <%
   }
 %>
+<h4>Upload games from an entire season</h4>
 <form action="/upload" method="POST">
   <div>
-    Upload a season: <input type="text" name="season" /><br />
+    Season: <input type="text" name="season" /><br />
+    <input type="submit" value="Upload" />
+  </div>
+</form>
+<h4>Upload games from a week</h4>
+<form action="/upload_week" method="POST">
+  <div>
+    Season: <input type="text" name="season" />
+    Week: <input type="text" name="week" />
+    <br />
+    <input type="submit" value="Upload" />
+  </div>
+</form>
+<h4>Upload games for a team</h4>
+<form action="/upload_team" method="POST">
+  <div>
+    Season: <input type="text" name="season" />
+    Full Team Name: <input type="text" name="team_name" />
+    Team ID: <input type="text" name="team" />
+    <br />
     <input type="submit" value="Upload" />
   </div>
 </form>
