@@ -9,7 +9,15 @@
 
 <body>
 <%
+  String successString = request.getParameter("success");
   String errorString = request.getParameter("error");
+  if (successString != null) {
+%>
+<div>
+  <p>Successfully uploaded games!</p>
+</div>
+<%
+  }
   if (errorString != null) {
 %>
 <div>

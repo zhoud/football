@@ -5,18 +5,22 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.taskqueue.Queue;
+import com.google.appengine.api.taskqueue.QueueFactory;
+import com.google.appengine.api.taskqueue.TaskOptions;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class UploadUtil {
   // Used to talk to Datastore.
   private DatastoreService datastore;
 
+  // Used to rate limit our requests to the college football API.
+  private Queue queue;
+
   public UploadUtil() {
     datastore = DatastoreServiceFactory.getDatastoreService();
+    queue = QueueFactory.getDefaultQueue();
   }
 
   // Checks if the season is valid. If it is, the season entity is inserted into Datastore and the
@@ -31,58 +35,22 @@ public class UploadUtil {
   }
 
   public void uploadGames(String season, List<GameFetcher.Team> teams, List<Integer> weeks) {
-    Map<String, String> fullTeamNameMap = new HashMap<>();
-    Map<String, List<GameFetcher.Game>> gameMap = new HashMap<>();
-
-    for (GameFetcher.Team team : teams) {
-      for (int week : weeks) {
-        fullTeamNameMap.put(team.team(), team.fullTeamName());
-        GameFetcher.Game game = GameFetcher.fetchGame(season, team.team(), week);
-        if (game != null
-            && (team.team().equals(game.homeTeam()) || team.team().equals(game.awayTeam()))) {
-          if (!gameMap.containsKey(team.team())) {
-            gameMap.put(team.team(), new ArrayList<GameFetcher.Game>());
-          }
-          gameMap.get(team.team()).add(game);
-        }
-      }
-    }
-
     Key seasonKey = KeyFactory.createKey("Season", season);
-    for (Map.Entry<String, List<GameFetcher.Game>> entry : gameMap.entrySet()) {
-      String team = entry.getKey();
-      List<GameFetcher.Game> games = entry.getValue();
-
-      Entity teamEntity = new Entity("Team", team, seasonKey);
-      teamEntity.setProperty("fullTeamName", fullTeamNameMap.get(team));
+    for (GameFetcher.Team team : teams) {
+      Entity teamEntity = new Entity("Team", team.team(), seasonKey);
+      teamEntity.setProperty("fullTeamName", team.fullTeamName());
       datastore.put(teamEntity);
 
-      Key teamKey = KeyFactory.createKey(seasonKey, "Team", team);
-      for (GameFetcher.Game game : games) {
-        Entity gameEntity = new Entity("Game", (long) game.week(), teamKey);
-
-        String otherTeam;
-        String location;
-        int mainScore;
-        int otherScore;
-        if (team.equals(game.homeTeam())) {
-          otherTeam = game.awayTeam();
-          location = "HOME";
-          mainScore = game.homeScore();
-          otherScore = game.awayScore();
-        } else {
-          otherTeam = game.homeTeam();
-          location = "AWAY";
-          mainScore = game.awayScore();
-          otherScore = game.homeScore();
-        }
-
-        gameEntity.setProperty("otherTeam", otherTeam);
-        gameEntity.setProperty("location", location);
-        gameEntity.setProperty("mainScore", mainScore);
-        gameEntity.setProperty("otherScore", otherScore);
-
-        datastore.put(gameEntity);
+      // We put the work of fetching data from the college football API in a task queue using the
+      // default rate limit of 5/s. This is to avoid hammering the API with a burst of requests at
+      // once when an entire season is loaded.
+      for (int week : weeks) {
+        queue.add(
+            TaskOptions.Builder
+                .withUrl("/game_handler")
+                .param("season", season)
+                .param("team", team.team())
+                .param("week", "" + week));
       }
     }
   }

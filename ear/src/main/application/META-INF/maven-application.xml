@@ -13,11 +13,5 @@
       <context-root>uploader</context-root>
     </web>
   </module>
-  <module>
-    <web>
-      <web-uri>mapreduce-1.war</web-uri>
-      <context-root>mapreduce</context-root>
-    </web>
-  </module>
   <library-directory>lib</library-directory>
 </application>

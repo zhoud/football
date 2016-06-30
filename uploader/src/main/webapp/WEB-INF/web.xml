@@ -33,6 +33,17 @@
     <url-pattern>/upload_team</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>game_handler</servlet-name>
+    <servlet-class>
+      com.google.simple.uploader.GameHandler
+    </servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>game_handler</servlet-name>
+    <url-pattern>/game_handler</url-pattern>
+  </servlet-mapping>
+
   <welcome-file-list>
     <welcome-file>uploader.jsp</welcome-file>
   </welcome-file-list>

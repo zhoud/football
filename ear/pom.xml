@@ -35,6 +35,18 @@
           <defaultLibBundleDir>lib</defaultLibBundleDir>
           <unpackTypes>war</unpackTypes>
           <applicationXml>${project.basedir}/src/main/application/META-INF/maven-application.xml</applicationXml>
+          <modules>
+            <webModule>
+              <groupId>com.google.simple</groupId>
+              <artifactId>teampicker</artifactId>
+              <contextRoot>/team-picker</contextRoot>
+            </webModule>
+            <webModule>
+              <groupId>com.google.simple</groupId>
+              <artifactId>uploader</artifactId>
+              <contextRoot>/uploader</contextRoot>
+            </webModule>
+          </modules>
         </configuration>
       </plugin>
       <plugin>
@@ -58,12 +70,6 @@
     <dependency>
       <groupId>com.google.simple</groupId>
       <artifactId>uploader</artifactId>
-      <version>1</version>
-      <type>war</type>
-    </dependency>
-    <dependency>
-      <groupId>com.google.simple</groupId>
-      <artifactId>mapreduce</artifactId>
       <version>1</version>
       <type>war</type>
     </dependency>
